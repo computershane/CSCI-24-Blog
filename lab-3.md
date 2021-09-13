@@ -1,7 +1,7 @@
 # TryHackMe Lab 3 Nmap
 
 <img src="nmap-lab3.png"
-     alt="nmap-lab3.png_icon"
+     alt="nmap-lab3_icon"
      style="float: left; margin-right: 10px;" />
      
 # Task 1  Intro Deploy The Machine
