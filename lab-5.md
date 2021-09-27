@@ -56,8 +56,8 @@ Accessed `http://10.10.126.123/evilshell.php`
 
 Ran `ls` command
 
-<img src="owasp-top10-lab5-1.png"
-     alt="owasp-top10-lab5-1_icon"
+<img src="owasp-top10-lab-5-1.png"
+     alt="owasp-top10-lab-5-1_icon"
      style="float: left; margin-right: 10px;" />
      
 What strange text file is in the website root directory?
@@ -84,8 +84,8 @@ Answer-`/usr/sbin/nologin`
 
 What version of Ubuntu is running?
 
-<img src="owasp-top10-lab5-2.png"
-     alt="owasp-top10-lab5-2_icon"
+<img src="owasp-top10-lab-5-2.png"
+     alt="owasp-top10-lab-5-2_icon"
      style="float: left; margin-right: 10px;" />
 
 Answer-`18.04.4`
@@ -94,8 +94,8 @@ Print out the MOTD.  What favorite beverage is shown?
 
 Ran command `cat /etc/update-motd.d/00-header`
 
-<img src="owasp-top10-lab5-3.png"
-     alt="owasp-top10-lab5-3_icon"
+<img src="owasp-top10-lab-5-3.png"
+     alt="owasp-top10-lab-5-3_icon"
      style="float: left; margin-right: 10px;" />
      
 Answer-`Dr Pepper`
