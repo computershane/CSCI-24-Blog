@@ -1,1 +1,329 @@
+# TryHackMe Lab 5 OWASP Top 10
+
+<img src="owasp-top10-lab5.png"
+     alt="owasp-top10-lab5_icon"
+     style="float: left; margin-right: 10px;" />
+
+Task 1  Introduction
+
+This room breaks each OWASP topic down and includes details on what the vulnerability is, how it occurs and how you can exploit it. You will put the theory into practise by completing supporting challenges.
+
+
+
+Injection
+Broken Authentication
+Sensitive Data Exposure
+XML External Entity
+Broken Access Control
+Security Misconfiguration
+Cross-site Scripting
+Insecure Deserialization
+Components with Known Vulnerabilities
+Insufficent Logging & Monitoring
+The room has been designed for beginners and assume no previous knowledge of security.
+
+Completed
+
+Task 1  Introduction
+
+Completed (connected to vpn)
+
+Task 3  [Severity 1] Injection
+
+Injection flaws are very common in applications today. These flaws occur because user controlled input is interpreted as actual commands or parameters by the application. Injection attacks depend on what technologies are being used and how exactly the input is interpreted by these technologies. Some common examples include:
+SQL Injection: This occurs when user controlled input is passed to SQL queries. As a result, an attacker can pass in SQL queries to manipulate the outcome of such queries. 
+Command Injection: This occurs when user input is passed to system commands. As a result, an attacker is able to execute arbitrary system commands on application servers.
+
+If an attacker is able to successfully pass input that is interpreted correctly, they would be able to do the following:
+Access, Modify and Delete information in a database when this input is passed into database queries. This would mean that an attacker can steal sensitive information such as personal details and credentials.
+Execute Arbitrary system commands on a server that would allow an attacker to gain access to users’ systems. This would enable them to steal sensitive data and carry out more attacks against infrastructure linked to the server on which the command is executed.
+
+The main defence for preventing injection attacks is ensuring that user controlled input is not interpreted as queries or commands. There are different ways of doing this:
+Using an allow list: when input is sent to the server, this input is compared to a list of safe input or characters. If the input is marked as safe, then it is processed. Otherwise, it is rejected and the application throws an error.
+Stripping input: If the input contains dangerous characters, these characters are removed before they are processed.
+
+Dangerous characters or input is classified as any input that can change how the underlying data is processed. Instead of manually constructing allow lists or even just stripping input, there are various libraries that perform these actions for you.
+
+Completed
+
+Task 4  [Severity 1] OS Command Injection
+
+Completed
+
+Task 5  [Severity 1] Command Injection Practical
+
+Accessed `http://10.10.126.123/evilshell.php`
+
+Ran `ls` command
+
+<img src="owasp-top10-lab5-1.png"
+     alt="owasp-top10-lab5-1_icon"
+     style="float: left; margin-right: 10px;" />
+     
+What strange text file is in the website root directory?
+
+Answer-`drpepper.txt `
+
+How many non-root/non-service/non-daemon users are there?
+
+ran command `cat etc/passwd`
+
+Answer-`0`
+
+What user is this app running as?
+
+ran command `whoami`
+
+Answer-`www-data`
+
+What is the user's shell set as?
+
+Ran cat /etc/passwd
+
+Answer-`/usr/sbin/nologin`
+
+What version of Ubuntu is running?
+
+<img src="owasp-top10-lab5-2.png"
+     alt="owasp-top10-lab5-2_icon"
+     style="float: left; margin-right: 10px;" />
+
+Answer-`18.04.4`
+
+Print out the MOTD.  What favorite beverage is shown?
+
+Ran command `cat /etc/update-motd.d/00-header`
+
+<img src="owasp-top10-lab5-3.png"
+     alt="owasp-top10-lab5-3_icon"
+     style="float: left; margin-right: 10px;" />
+     
+Answer-`Dr Pepper`
+
+Task 6  [Severity 2] Broken Authentication
+
+
+Authentication and session management constitute core components of modern web applications. Authentication allows users to gain access to web applications by verifying their identities. The most common form of authentication is using a username and password mechanism. A user would enter these credentials, the server would verify them. If they are correct, the server would then provide the users’ browser with a session cookie. A session cookie is needed because web servers use HTTP(S) to communicate which is stateless. Attaching session cookies means that the server will know who is sending what data. The server can then keep track of users' actions. 
+
+If an attacker is able to find flaws in an authentication mechanism, they would then successfully gain access to other users’ accounts. This would allow the attacker to access sensitive data (depending on the purpose of the application). Some common flaws in authentication mechanisms include:
+
+Brute force attacks: If a web application uses usernames and passwords, an attacker is able to launch brute force attacks that allow them to guess the username and passwords using multiple authentication attempts. 
+Use of weak credentials: web applications should set strong password policies. If applications allow users to set passwords such as ‘password1’ or common passwords, then an attacker is able to easily guess them and access user accounts. They can do this without brute forcing and without multiple attempts.
+Weak Session Cookies: Session cookies are how the server keeps track of users. If session cookies contain predictable values, an attacker can set their own session cookies and access users’ accounts. 
+There can be various mitigation for broken authentication mechanisms depending on the exact flaw:
+
+To avoid password guessing attacks, ensure the application enforces a strong password policy. 
+To avoid brute force attacks, ensure that the application enforces an automatic lockout after a certain number of attempts. This would prevent an attacker from launching more brute force attacks.
+Implement Multi Factor Authentication - If a user has multiple methods of authentication, for example, using username and passwords and receiving a code on their mobile device, then it would be difficult for an attacker to get access to both credentials to get access to their account.
+
+Completed
+
+Task 7  [Severity 2] Broken Authentication Practical
+
+For this example, we'll be looking at a logic flaw within the authentication mechanism.
+
+A lot of times what happens is that developers forgets to sanitize the input(username & password) given by the user in the code of their application, which can make them vulnerable to attacks like SQL injection. However, we are going to focus on a vulnerability that happens because of a developer's mistake but is very easy to exploit i.e re-registration of an existing user.
+
+Let's understand this with the help of an example, say there is an existing user with the name admin and now we want to get access to their account so what we can do is try to re-register that username but with slight modification. We are going to enter " admin"(notice the space in the starting). Now when you enter that in the username field and enter other required information like email id or password and submit that data. It will actually register a new user but that user will have the same right as normal admin. That new user will also be able to see all the content presented under the user admin.
+
+To see this in action go to http://10.10.126.123:8888 and try to register a user name darren, you'll see that user already exists so then try to register a user " darren" and you'll see that you are now logged in and will be able to see the content present only in Darren's account which in our case is the flag that you need to retrieve.
+
+Went to `http://10.10.126.123:8888/`
+
+Answer`fe86079416a21a3c99937fea8874b667`
+
+What is the flag that you found in arthur's account?
+
+Answer-`d9ac0f7db4fda460ac3edeb75d75e16e`
+
+Task 8  [Severity 3] Sensitive Data Exposure (Introduction)
+
+When a webapp accidentally divulges sensitive data, we refer to it as "Sensitive Data Exposure". This is often data directly linked to customers (e.g. names, dates-of-birth, financial information, etc), but could also be more technical information, such as usernames and passwords. At more complex levels this often involves techniques such as a "Man in The Middle Attack", whereby the attacker would force user connections through a device which they control, then take advantage of weak encryption on any transmitted data to gain access to the intercepted information (if the data is even encrypted in the first place...). Of course, many examples are much simpler, and vulnerabilities can be found in web apps which can be exploited without any advanced networking knowledge. Indeed, in some cases, the sensitive data can be found directly on the webserver itself...
+
+The web application in this box contains one such vulnerability. Deploy the machine, then read through the supporting material in the following tasks as the box boots up.
+
+Completed
+
+Task 9  [Severity 3] Sensitive Data Exposure (Supporting Material 1)
+
+The most common way to store a large amount of data in a format that is easily accessible from many locations at once is in a database. This is obviously perfect for something like a web application, as there may be many users interacting with the website at any one time. Database engines usually follow the Structured Query Language (SQL) syntax; however, alternative formats (such as NoSQL) are rising in popularity.
+
+In a production environment it is common to see databases set up on dedicated servers, running a database service such as MySQL or MariaDB; however, databases can also be stored as files. These databases are referred to as "flat-file" databases, as they are stored as a single file on the computer. This is much easier than setting up a full database server, and so could potentially be seen in smaller web applications. Accessing a database server is outwith the scope of today's task, so let's focus instead on flat-file databases.
+
+As mentioned previously, flat-file databases are stored as a file on the disk of a computer. Usually this would not be a problem for a webapp, but what happens if the database is stored underneath the root directory of the website (i.e. one of the files that a user connecting to the website is able to access)? Well, we can download it and query it on our own machine, with full access to everything in the database. Sensitive Data Exposure indeed!
+
+That is a big hint for the challenge, so let's briefly cover some of the syntax we would use to query a flat-file database.
+
+The most common (and simplest) format of flat-file database is an sqlite database. These can be interacted with in most programming languages, and have a dedicated client for querying them on the command line. This client is called "sqlite3", and is installed by default on Kali.
+
+Completed
+
+Task 10  [Severity 3] Sensitive Data Exposure (Supporting Material 2)
+
+In the previous task we saw how to query an SQLite database for sensitive data. We found a collection of password hashes, one for each user. In this task we will briefly cover how to crack these.
+
+When it comes to hash cracking, Kali comes pre-installed with various tools -- if you know how to use these then feel free to do so; however, they are outwith the scope of this material.
+
+Instead we will be using the online tool: Crackstation. This website is extremely good at cracking weak password hashes. For more complicated hashes we would need more sophisticated tools; however, all of the crackable password hashes used in today's challenge are weak MD5 hashes, which Crackstation should handle very nicely indeed.
+
+When we navigate to the website we are met with the following interface:
+
+Completed
+
+Task 11  [Severity 3] Sensitive Data Exposure (Challenge)
+
+
+Have a look around the webapp. The developer has left themselves a note indicating that there is sensitive data in a specific directory. 
+
+What is the name of the mentioned directory?
+
+Answer`/assets`
+
+Navigate to the directory you found in question one. What file stands out as being likely to contain sensitive data?
+
+Answer-`webapp.db`
+
+Use the supporting material to access the sensitive data. What is the password hash of the admin user?
+
+Answer-`6eea9b7ef19179a06954edd0f6c05ceb`
+
+Crack the hash.
+What is the admin's plaintext password?
+
+Answer-`qwertyuiop`
+
+Login as the admin. What is the flag?
+
+Answer-`THM{Yzc2YjdkMjE5N2VjMzNhOTE3NjdiMjdl}`
+
+Task 12  [Severity 4] XML External Entity
+
+An XML External Entity (XXE) attack is a vulnerability that abuses features of XML parsers/data. It often allows an attacker to interact with any backend or external systems that the application itself can access and can allow the attacker to read the file on that system. They can also cause Denial of Service (DoS) attack or could use XXE to perform Server-Side Request Forgery (SSRF) inducing the web application to make requests to other applications. XXE may even enable port scanning and lead to remote code execution.
+
+There are two types of XXE attacks: in-band and out-of-band (OOB-XXE).
+1) An in-band XXE attack is the one in which the attacker can receive an immediate response to the XXE payload.
+
+2) out-of-band XXE attacks (also called blind XXE), there is no immediate response from the web application and attacker has to reflect the output of their XXE payload to some other file or their own server.
+
+This challenge is from our subscriber only material - happy hacking!
+
+Completed
+
+Task 13  [Severity 4 XML External Entity - eXtensible Markup Language
+
+Before we move on to learn about XXE exploitation we'll have to understand XML properly.
+
+What is XML?
+
+XML (eXtensible Markup Language) is a markup language that defines a set of rules for encoding documents in a format that is both human-readable and machine-readable. It is a markup language used for storing and transporting data. 
+
+Why we use XML?
+
+1. XML is platform-independent and programming language independent, thus it can be used on any system and supports the technology change when that happens.
+
+2. The data stored and transported using XML can be changed at any point in time without affecting the data presentation.
+
+3. XML allows validation using DTD and Schema. This validation ensures that the XML document is free from any syntax error.
+
+4. XML simplifies data sharing between various systems because of its platform-independent nature. XML data doesn’t require any conversion when transferred between different systems.
+
+Syntax
+
+Every XML document mostly starts with what is known as XML Prolog.
+
+Full form of XML
+
+Answer-`eXtensible Markup Language`
+
+Is it compulsory to have XML prolog in XML documents?
+
+Answer-`no`
+
+Can we validate XML documents against a schema?
+
+Answer-`yes`
+
+Task 14  [Severity 4] XML External Entity - DTD
+
+Before we move on to start learning about XXE we'll have to understand what is DTD in XML.
+
+DTD stands for Document Type Definition. A DTD defines the structure and the legal elements and attributes of an XML document.
+
+Let us try to understand this with the help of an example. Say we have a file named note.dtd with the following conten
+
+How do you define a new ELEMENT?
+
+Answer-` !ELEMENT`
+
+How do you define a ROOT element?
+
+Answer-`!DOCTYPE`
+
+How do you define a new ENTITY?
+
+Answer-`!ENTITY`
+
+Task 15  [Severity 4] XML External Entity - XXE Payload
+
+Now we'll see some XXE payload and see how they are working.
+
+1) The first payload we'll see is very simple. If you've read the previous task properly then you'll understand this payload very easily.
+
+Completed
+
+Task 16  [Severity 4] XML External Entity - Exploiting
+
+Now let us see some payloads in action. The payload that I'll be using is the one we saw in the previous task.
+
+
+Try to display your own name using any payload.
+
+Completed
+
+See if you can read the /etc/passwd
+
+Completed
+
+What is the name of the user in /etc/passwd
+
+Answer-`falcon`
+
+Where is falcon's SSH key located?
+
+Answer-`/home/falcon/.ssh/id_rsa`
+
+What are the first 18 characters for falcon's private key
+
+Task 17  [Severity 5] Broken Access Control
+
+Websites have pages that are protected from regular visitors, for example only the site's admin user should be able to access a page to manage other users. If a website visitor is able to access the protected page/pages that they are not authorised to view, the access controls are broken.
+
+A regular visitor being able to access protected pages, can lead to the following:
+Being able to view sensitive information
+Accessing unauthorized functionality
+OWASP have a listed a few attack scenarios demonstrating access control weaknesses:
+
+Completed
+
+ [Severity 5] Broken Access Control (IDOR Challenge)
+ 
+ IDOR, or Insecure Direct Object Reference, is the act of exploiting a misconfiguration in the way user input is handled, to access resources you wouldn't ordinarily be able to access. IDOR is a type of access control vulnerability.
+
+For example, let's say we're logging into our bank account, and after correctly authenticating ourselves, we get taken to a URL like this https://example.com/bank?account_number=1234. On that page we can see all our important bank details, and a user would do whatever they needed to do and move along their way thinking nothing is wrong.
+
+There is however a potentially huge problem here, a hacker may be able to change the account_number parameter to something else like 1235, and if the site is incorrectly configured, then he would have access to someone else's bank information.
+
+Completed
+
+visit `http://10.10.126.123`
+
+Completed
+
+Look at other users notes. What is the flag?
+
+Answer-`flag{fivefourthree}`
+
+
+
+
 
