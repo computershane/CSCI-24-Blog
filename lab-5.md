@@ -323,7 +323,265 @@ Look at other users notes. What is the flag?
 
 Answer-`flag{fivefourthree}`
 
+Task 19  [Severity 6] Security Misconfiguration
+
+Security Misconfigurations are distinct from the other Top 10 vulnerabilities, because they occur when security could have been configured properly but was not.
+
+Security misconfigurations include:
+
+Poorly configured permissions on cloud services, like S3 buckets
+Having unnecessary features enabled, like services, pages, accounts or privileges
+Default accounts with unchanged passwords
+Error messages that are overly detailed and allow an attacker to find out more about the system
+Not using HTTP security headers, or revealing too much detail in the Server: HTTP header
+This vulnerability can often lead to more vulnerabilities, such as default credentials giving you access to sensitive data, XXE or command injection on admin pages.
+
+For more info, I recommend having a look at the OWASP top 10 entry for Security Misconfiguration
+
+Completed
+
+Hack into the webapp, and find the flag!
+
+Answer-`thm{4b9513968fd564a87b28aa1f9d672e17}`
+
+Task 20  [Severity 7] Cross-site Scripting
+
+Cross-site scripting, also known as XSS is a security vulnerability typically found in web applications. It’s a type of injection which can allow an attacker to execute malicious scripts and have it execute on a victim’s machine.
+
+A web application is vulnerable to XSS if it uses unsanitized user input. XSS is possible in Javascript, VBScript, Flash and CSS. There are three main types of cross-site scripting:
+Stored XSS - the most dangerous type of XSS. This is where a malicious string originates from the website’s database. This often happens when a website allows user input that is not sanitised (remove the "bad parts" of a users input) when inserted into the database.
+Reflected XSS - the malicious payload is part of the victims request to the website. The website includes this payload in response back to the user. To summarise, an attacker needs to trick a victim into clicking a URL to execute their malicious payload.
+DOM-Based XSS - DOM stands for Document Object Model and is a programming interface for HTML and XML documents. It represents the page so that programs can change the document structure, style and content. A web page is a document and this document can be either displayed in the browser window or as the HTML source.
+For more XSS explanations and exercises, check out the XSS room.
+
+Completed
+
+Navigate to http://10.10.126.123/ in your browser and click on the "Reflected XSS" tab on the navbar; craft a reflected XSS payload that will cause a popup saying "Hello".
+
+Created payload`<script>alert('Hello')</script>`
+
+Answer-`ThereIsMoreToXSSThanYouThink`
+
+On the same reflective page, craft a reflected XSS payload that will cause a popup with your machines IP address.
+
+created reflected payload`<script>alert(window.location.host)</script>`
+
+Answer-`ReflectiveXss4TheWin`
+
+Now navigate to http://10.10.126.123/ in your browser and click on the "Stored XSS" tab on the navbar; make an account.
+
+Then add a comment and see if you can insert some of your own HTML.
+
+Answer-`HTML_T4gs`
+
+On the same page, create an alert popup box appear on the page with your document cookies.
+
+created new payload `<script>alert(document.cookie)</script>`
+
+Answer-`W3LL_D0N3_LVL2`
+
+Change "XSS Playground" to "I am a hacker" by adding a comment and using Javascript.
+
+Created payload `<script>document.querySelector('alert').textContent = 'I am a Hacker'</script>`
+
+Answer-`websites_can_be_easily_defaced_with_xss`
+
+Task 21  [Severity 8] Insecure Deserialization
+
+"Insecure Deserialization is a vulnerability which occurs when untrusted data is used to abuse the logic of an application" (Acunetix., 2017)
+
+
+This definition is still quite broad to say the least. Simply, insecure deserialization is replacing data processed by an application with malicious code; allowing anything from DoS (Denial of Service) to RCE (Remote Code Execution) that the attacker can use to gain a foothold in a pentesting scenario.
+
+Specifically, this malicious code leverages the legitimate serialization and deserialization process used by web applications. We'll be explaining this process and why it is so commonplace in modern web applications.
 
 
 
+OWASP rank this vulnerability as 8 out of 10 because of the following reasons:
 
+
+
+- Low exploitability. This vulnerability is often a case-by-case basis - there is no reliable tool/framework for it. Because of its nature, attackers need to have a good understanding of the inner-workings of the ToE.
+
+- The exploit is only as dangerous as the attacker's skill permits, more so, the value of the data that is exposed. For example, someone who can only cause a DoS will make the application unavailable. The business impact of this will vary on the infrastructure - some organisations will recover just fine, others, however, will not.
+
+
+Who developed the Tomcat application?
+
+Answer-`Apache Software Foundation`
+
+What type of attack that crashes services can be performed with insecure deserialization?
+
+Answer-`Denial of Service`
+
+Task 22  [Severity 8] Insecure Deserialization - Objects
+
+
+A prominent element of object-oriented programming (OOP), objects are made up of two things:
+- State
+- Behaviour
+
+Simply, objects allow you to create similar lines of code without having to do the leg-work of writing the same lines of code again.
+
+For example, a lamp would be a good object. Lamps can have different types of bulbs, this would be their state, as well as being either on/off - their behaviour!
+
+Rather than having to accommodate every type of bulb and whether or not that specific
+
+
+Select the correct term of the following statement:
+
+
+if a dog was sleeping, would this be:
+
+A) A State
+B) A Behaviour 
+
+Answer-`A behaviour`
+
+Task 23  [Severity 8] Insecure Deserialization - Deserialization
+
+De(Serialization)
+
+Learning is best done through analogies
+
+A Tourist approaches you in the street asking for directions. They're looking for a local landmark and got lost. Unfortunately, English isn't their strong point and nor do you speak their dialect either. What do you do? You draw a map of the route to the landmark because pictures cross language barriers, they were able to find the landmark. Nice! You've just serialised some information, where the tourist then deserialised it to find the landmark.
+
+
+Continued
+
+Serialisation is the process of converting objects used in programming into simpler, compatible formatting for transmitting between systems or networks for further processing or storage.
+
+Alternatively, deserialisation is the reverse of this; converting serialised information into their complex form - an object that the application will understand.
+
+
+What does this mean?
+
+Say you have a password of "password123" from a program that needs to be stored in a database on another system. To travel across a network this string/output needs to be converted to binary. Of course, the password needs to be stored as "password123" and not its binary notation. Once this reaches the database, it is converted or deserialised back into "password123" so it can be stored.
+
+The process is best explained through diagrams:
+
+
+
+How can we leverage this?
+
+Simply, insecure deserialization occurs when data from an untrusted party (I.e. a hacker) gets executed because there is no filtering or input validation; the system assumes that the data is trustworthy and will execute it no holds barred.
+
+What is the name of the base-2 formatting that data is sent across a network as?
+
+Answer-`binary`
+
+Task 24  [Severity 8] Insecure Deserialization - Cookies
+
+Ah yes, the origin of many memes. Cookies are an essential tool for modern websites to function. Tiny pieces of data, these are created by a website and stored on the user's computer. 
+
+You'll see notifications like the above on most websites these days. Websites use these cookies to store user-specific behaviours like items in their shopping cart or session IDs.
+
+In the web application, we're going to exploit, you'll notice cookies store login information like the below! Yikes!
+
+If a cookie had the path of webapp.com/login , what would the URL that the user has to visit be?
+
+Answer-`webapp.com/login`
+
+What is the acronym for the web technology that Secure cookies work over?
+
+Answer-`https`
+
+Task 25  [Severity 8] Insecure Deserialization - Cookies Practical
+
+1st flag (cookie value)
+
+Answer-`THM{good_old_base64_huh}`
+
+2nd flag (admin dashboard)
+
+Answer-`THM{heres_the_admin_flag}`
+
+Task 26  [Severity 8] Insecure Deserialization - Code Execution
+
+A much more nefarious attack then simply decoding cookies, we get into the nitty-gritty.
+
+Setup
+
+1. First, change the value of the userType cookie from "admin" to "user" and return to http://10.10.126.123/myprofile 
+
+2. Then, left-click on the URL in "Exhange your vim" found in the screenshot below.
+
+ran command cat flag.txt
+
+Answer-`4a69a7ff9fd68`
+
+Task 27  [Severity 9] Components With Known Vulnerabilities - Intro
+
+Occasionally, you may find that the company/entity that you're pen-testing is using a program that already has a well documented vulnerability.
+
+For example, let's say that a company hasn't updated their version of WordPress for a few years, and using a tool such as wpscan, you find that it's version 4.6. Some quick research will reveal that WordPress 4.6 is vulnerable to an unauthenticated remote code execution(RCE) exploit, and even better you can find an exploit already made on exploit-db.
+
+As you can see this would be quite devastating, because it requires very little work on the part of the attacker as often times since the vulnerability is already well known, someone else has made an exploit for the vulnerability. The situation becomes even worse when you realize, that it's really quite easy for this to happen, if a company misses a single update for a program they use, they could be vulnerable to any number of attacks.
+
+Hence, why OWASP has rated this a 3(meaning high) on the prevalence scale, it is incredibly easy for a company to miss an update for an application.
+
+Completed
+
+Task 28  [Severity 9] Components With Known Vulnerabilities - Exploit
+
+Recall that since this is about known vulnerabilities, most of the work has already been done for us. Our main job is to find out the information of the software, and research it until we can find an exploit. Let's go through that with an example web application.
+
+Completed
+
+Task 29  [Severity 9] Components With Known Vulnerabilities - Lab
+
+The following is a vulnerable application, all information you need to exploit it can be found online. 
+
+Note: When you find the exploit script, put all of your input in quotes, for example "id"
+
+How many characters are in /etc/passwd (use wc -c /etc/passwd to get the answer)
+
+ran command `wc -c /etc/passwd`
+
+Answer-`1611`
+
+Task 30  [Severity 10] Insufficient Logging and Monitoring
+
+Downloaded file
+
+When web applications are set up, every action performed by the user should be logged. Logging is important because in the event of an incident, the attackers actions can be traced. Once their actions are traced, their risk and impact can be determined. Without logging, there would be no way to tell what actions an attacker performed if they gain access to particular web applications. The bigger impacts of these include:
+
+regulatory damage: if an attacker has gained access to personally identifiable user information and there is no record of this, not only are users of the application affected, but the application owners may be subject to fines or more severe actions depending on regulations.
+risk of further attacks: without logging, the presence of an attacker may be undetected. This could allow an attacker to launch further attacks against web application owners by stealing credentials, attacking infrastructure and more.
+The information stored in logs should include:
+
+HTTP status codes
+Time Stamps
+Usernames
+API endpoints/page locations
+IP addresses
+These logs do have some sensitive information on them so its important to ensure that logs are stored securely and multiple copies of these logs are stored at different locations.
+
+As you may have noticed, logging is more important after a breach or incident has occurred. The ideal case is having monitoring in place to detect any suspicious activity. The aim of detecting this suspicious activity is to either stop the attacker completely or reduce the impact they've made if their presence has been detected much later than anticipated. Common examples of suspicious activity includes:
+
+multiple unauthorised attempts for a particular action (usually authentication attempts or access to unauthorised resources e.g. admin pages)
+requests from anomalous IP addresses or locations: while this can indicate that someone else is trying to access a particular user's account, it can also have a false positive rate.
+use of automated tools: particular automated tooling can be easily identifiable e.g. using the value of User-Agent headers or the speed of requests. This can indicate an attacker is using automated tooling.
+common payloads: in web applications, it's common for attackers to use Cross Site Scripting (XSS) payloads. Detecting the use of these payloads can indicate the presence of someone conducting unauthorised/malicious testing on applications.
+Just detecting suspicious activity isn't helpful. This suspicious activity needs to be rated according to the impact level. For example, certain actions will higher impact than others. These higher impact actions need to be responded to sooner thus they should raise an alarm which raises the attention of the relevant party.
+
+Put this knowledge to practise by analysing this sample log file.
+
+What IP address is the attacker using?
+
+opened login-logs.txt and found unauthorized connections.
+
+<img src="owasp-top10-lab-5-4.png"
+     alt="owasp-top10-lab-5-4_icon"
+     style="float: left; margin-right: 10px;" />
+
+Answer-`49.99.13.16`
+
+What kind of attack is being carried out?
+   
+Answer-`brute force`
+
+﻿What Next?
+Why not enroll in our beginner level pathway or find another room to complete?
+
+Completed
