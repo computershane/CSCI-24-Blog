@@ -23,5 +23,5 @@ Statred Machine
 
 Ran command `ls` found nothing.
 
-ran grep, no luck
+ran `grep`, no luck
 
