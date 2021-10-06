@@ -25,3 +25,42 @@ Ran command `ls` found nothing.
 
 ran `grep`, no luck
 
+ran nmap
+
+`nmap -T4 -A -v 10.10.41.125`
+
+<img src="vulnNet-lab-6-1.png"
+     alt="vulnNet-lab-6-1_icon"
+     style="float: left; margin-right: 10px;" />
+     
+smbclient can be exploited.
+
+`smbclient \\10.10.41.125/shares`
+
+no password needed
+
+<img src="vulnNet-lab-6-2.png"
+     alt="vulnNet-lab-6-2_icon"
+     style="float: left; margin-right: 10px;" />
+     
+What is the services flag? (services.txt)
+ 
+ Answer-`THM{0a09d51e488f5fa105d8d866a497440a}`
+ 
+What is the internal flag? ("internal flag") 
+
+NFS on port 2049 found, let's mount the NFS fileshare
+
+`sudo mount -t nfs 10.10.41.125: tmp`
+
+tree command not working
+
+ran command `sudo apt install tree`
+
+
+
+
+
+ 
+
+
