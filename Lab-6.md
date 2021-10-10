@@ -137,6 +137,10 @@ failed
 
 researched
 
+<img src="vulnNet-lab-6-9.png"
+     alt="vulnNet-lab-6-9_icon"
+     style="float: left; margin-right: 10px;" />
+
 connected to ssh ran `ls`
 
 ran command `cat user.txt`
