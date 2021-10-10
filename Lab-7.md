@@ -236,6 +236,86 @@ ran command `exploit`
 
 ran command `jobs`
 
+Check Sophos logs and I block too many ports.
+
+screenshot below>>>
+
+<img src="Metasploit-lab-7-4.png"
+     alt="Metasploit-lab-7-4_icon"
+     style="float: left; margin-right: 10px;" />
+
+Task 6  We're in, now what?
+
+First things first, our initial shell/process typically isn't very stable. Let's go ahead and attempt to move to a different process. First, let's list the processes using the command ps. What's the name of the spool service?
+
+ran command `ps`
+
+Answer-`spoolsv.exe`
+
+Let's go ahead and move into the spool process or at least attempt to! What command
+do we use to transfer ourselves into the process? This won't work at the current time
+as we don't have sufficient privileges but we can still try!
+
+Answer-`migrate`
+
+Well that migration didn't work, let's find out some more information about the system 
+so we can try to elevate. What command can we run to find out more information regarding
+the current user running the process we are in?
+
+Answer-`getuid`
+
+How about finding more information out about the system itself?
+
+Answer-`sysinfo`
+
+This might take a little bit of googling, what do we run to load mimikatz (more specifically the new version of mimikatz) so we can use it?
+
+Answer-`load kiwi`
+
+Let's go ahead and figure out the privileges of our current user, what command do we run?
+
+Answer-`getprivs`
+
+What command do we run to transfer files to our victim computer?
+
+Answer-` upload`
+
+How about if we want to run a Metasploit module?
+
+Answer-`run`
+
+A simple question but still quite necessary, what command do we run to figure out the networking information and interfaces on our victim?
+
+Answer-`ipconfig`
+
+Let's go ahead and run a few post modules from Metasploit. First, let's run the command run post/windows/gather/checkvm. This will determine if we're in a VM, a very useful piece of knowledge for further pivoting.
+
+Next, let's try: run post/multi/recon/local_exploit_suggester. This will check for various exploits which we can run within our session to elevate our privileges. Feel free to experiment using these suggestions, however, we'll be going through this in greater detail in the room Ice.
+
+One quick extra question, what command can we run in our meterpreter session to spawn a normal system shell?
+
+Answer-`shell`
+
+Task 7  Makin' Cisco Proud
+
+Let's go ahead and run the command run autoroute -h, this will pull up the help menu for autoroute. What command do we run to add a route to the following subnet: 172.18.1.0/24? Use the -n flag in your answer.
+
+Answer-`run autoroute -s 172.18.1.0 -n 255.255.255.0`
+
+
+Additionally, we can start a socks5 proxy server out of this session. Background our current meterpreter session and run the command search server/socks5. What is the full path to the socks5 auxiliary module?
+
+Answer-`auxiliary/server/socks4a`
+
+Once we've started a socks server we can modify our /etc/proxychains.conf file to include our new server. What command do we prefix our commands (outside of Metasploit) to run them through our socks5 server with proxychains?
+
+<img src="Metasploit-lab-7-5.png"
+     alt="Metasploit-lab-7-5_icon"
+     style="float: left; margin-right: 10px;" />
+     
+     Answer-`proxychains`
+     
+
 
 
 
