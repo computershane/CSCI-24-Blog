@@ -42,7 +42,9 @@ Task 4: View available APIs
      alt="Lab-10-5_icon"
      style="float: left; margin-right: 10px;" />
      
-
+<img src="Lab-10-6.png"
+     alt="Lab-10-6_icon"
+     style="float: left; margin-right: 10px;" />
      
 
 
