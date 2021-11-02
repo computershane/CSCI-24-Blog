@@ -2,8 +2,8 @@
 
 Lab 1  A Tour of Google Cloud Hands-on Labs
 
-<img src="Lab-10.png"
-     alt="Lab-10_icon"
+<img src="Lab-10.0.png"
+     alt="Lab-1.00_icon"
      style="float: left; margin-right: 10px;" />
 
 Click `Start Lab`
