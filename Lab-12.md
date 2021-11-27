@@ -1,7 +1,7 @@
 # TryHackMe Lab 12 Encryption-Crypto-101
 
-<img src="Encryption-Crypto-101.png"
-     alt="Encryption-Crypto-101_icon"
+<img src="Encryption-Crypto-101-Lab-12.png"
+     alt="Encryption-Crypto-101-Lab-12_icon"
      style="float: left; margin-right: 10px;" />
 
 #Task 1  What will this room cover?
@@ -180,8 +180,8 @@ p = 4391, q = 6659. What is n?
 
 used online RSA calculator
 
-<img src="Encryption-Crypto-101-1.png"
-     alt="Encryption-Crypto-101-1_icon"
+<img src="Encryption-Crypto-101-Lab-12-1.png"
+     alt="Encryption-Crypto-101-Lab-12-1_icon"
      style="float: left; margin-right: 10px;" />
 
 Answer-`29239669`
@@ -246,8 +246,8 @@ it’s worth setting it up.
 
 What company is TryHackMe's certificate issued to?
 
-<img src="Encryption-Crypto-101-2.png"
-     alt="Encryption-Crypto-101-2_icon"
+<img src="Encryption-Crypto-101-Lab-12-2.png"
+     alt="Encryption-Crypto-101-Lab-12-2_icon"
      style="float: left; margin-right: 10px;" />
 
 Answer-`cloudflare`
@@ -296,8 +296,8 @@ Answer-`RSA`
 
 Crack the password with John The Ripper and rockyou, what's the passphrase for the key?
 
-<img src="Encryption-Crypto-101-3.png"
-     alt="Encryption-Crypto-101-3_icon"
+<img src="Encryption-Crypto-101-Lab-12-3.png"
+     alt="Encryption-Crypto-101-Lab-12-3_icon"
      style="float: left; margin-right: 10px;" />
 
 Answer-`delicious`
@@ -352,8 +352,8 @@ You have the private key, and a file encrypted with the public key. Decrypt the 
 
 Downlaoded file
 
-<img src="Encryption-Crypto-101-4.png"
-     alt="Encryption-Crypto-101-4_icon"
+<img src="Encryption-Crypto-101-Lab-12-4.png"
+     alt="Encryption-Crypto-101-Lab-12-4_icon"
      style="float: left; margin-right: 10px;" />
 
 
