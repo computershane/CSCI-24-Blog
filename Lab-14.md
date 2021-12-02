@@ -1,6 +1,6 @@
 # MiroCon
 
-#Speaker: `Shane Roush` aka `ComputerShane`
+#Speaker `Shane Roush` aka `ComputerShane`
 
 Hacking fileVault 2 Encryption
 
@@ -8,7 +8,7 @@ Hacking fileVault 2 Encryption
 `In this demonstration, I will show how to dump the fileVault 2 encryption hash from an APFS formatted mac drive running Mac Os Catelina. 
 I will use the Target disk mode on the victim client as well as use an attacking pc running Ubuntu 20.04.3 LTS.`
 
-#Bio 
+# Bio 
 `MY background is many years in IT from multiple MSP's, Public sector government, and  Cyber freelance contractor to name a few. 
 I have extensive knowledge in cyber forensics, and for fun i like wiping my drives, and then using file carving extraction methods 
 for retrieval of my own data for proof of concepts.`
