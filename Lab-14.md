@@ -36,7 +36,7 @@ for retrieval of my own data for proof of concepts.`
 
 
 
-# Confrences 
+# Conferences 
 
 `N/A` This is my first.
 
